@@ -1,0 +1,6 @@
+__pycache__/
+# Additional ignores
+*.py[cod]
+venv/
+.vscode/
+*.log
