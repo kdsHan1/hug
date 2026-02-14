@@ -1,20 +1,17 @@
 from datasets import load_dataset
-from pprint import pprint
+import os
 
-dataset = load_dataset("klue", "ynat")
+base_path = os.path.dirname(os.path.abspath(__file__))
+csv_path = os.path.join(base_path, "sample_data", "sample.csv")
 
-# print(dataset)
+ratio = 80
+dataset = load_dataset(
+  path="csv",
+  data_files=csv_path,
+  split={
+    "train": f"train[:{ratio}%]",
+    "test": f"train[{ratio}%:]"
+  }
+)
 
-
-# pprint(dataset)
-raw_train_dataset = dataset["train"]
-# pprint(raw_train_dataset[0])
-
-# print('----' * 30)
-
-# print(raw_train_dataset)
-
-import pandas as pd
-
-df = pd.DataFrame(dataset['train'])
-print(df[['title', 'label']].head())
+print(dataset)
